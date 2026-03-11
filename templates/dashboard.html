@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block css %}
+<link rel = "stylesheet" href = "/static/css/base.css">
+{% endblock %}
+{% block content%}
+<h2>Network Security Dashboard</h2>
+
+<div class = "cards">
+
+<div class = "card">
+<h3>Alerts</h3>
+<a href = "/alerts/">View Alerts</a>
+</div>
+
+<div class = "card">
+<h3>Blocked IPs</h3>
+<a href = "/blocked/">View Blocked</a>
+</div>
+
+<div class = "card">
+<h3>Permanent Bans</h3>
+<a href = "/alerts/">View Bans</a>
+</div>
+
+
+</div>
+
+{% endblock %}

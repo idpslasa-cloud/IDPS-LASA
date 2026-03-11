@@ -1,0 +1,29 @@
+<!Doctype html>
+<html>
+<head>
+    <title>LASA IDPS</title>
+    <link rel = "icon" href = "/static/img/favicon.ico">
+    <link rel = "stylesheet" href = "/static/css/base.css">
+    {% block css %}{% endblock %}
+</head>
+<body>
+<header>
+    <h1>LASA</h1>
+    <nav>
+        <a href = "/">Dashboard</a>
+        <a href = "/alerts/">Alerts</a>
+        <a href = "/blocked/">Blocked IPs</a>
+        <a href = "/permanent/">Permanent Bans</a>
+    </nav>
+</header>
+<hr>
+<div class = "content">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+
+<footer>
+    <p>Powered by LASA IDPS | Developed by Yashwanth</p>
+</footer>
+</html>

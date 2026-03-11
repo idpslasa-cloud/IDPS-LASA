@@ -1,0 +1,10 @@
+.cards{
+display:flex;
+gap: 20px;
+}
+
+.card{
+background: #222;
+padding: 20px;
+border-radius: 10px;
+}
