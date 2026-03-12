@@ -6,9 +6,13 @@
 
 {% block content %}
 <h2>Permanent Banned IPs</h2>
-<div class = "permanent-container">
-<ul id = "permanent-list">
+
+<ul>
+{% for ip in permanent_ips %}
+<li>{{ ip }}</li>
+{% empty %}
 <li>No permanently banned IPs</li>
+{% endfor %}
 </ul>
-</div>
+
 {% endblock %}

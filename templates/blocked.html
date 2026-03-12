@@ -7,9 +7,13 @@
 {% block content %}
 
 <h2>Blocked IP Addresses</h2>
-<div class = "blocked-container">
-<ul id = "blocked-list">
-<li>No blocked IPs yet</li>
+
+<ul>
+{% for ip in blocked_ips %}
+<li>{{ ip }}</li>
+{% empty %}
+<li>No blocked IPs</li>
+{% endfor %}
 </ul>
-</div>
+
 {% endblock %}

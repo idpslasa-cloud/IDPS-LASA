@@ -1,28 +1,106 @@
-{% extends "base.html" %}
-{% block css %}
-<link rel = "stylesheet" href = "/static/css/base.css">
+<!-- templates/dashboard.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Overview Section -->
+<div id="overview-section">
+    <div class="row g-4">
+        <!-- Recent Alerts Card -->
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-transparent border-0 pb-0">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-bell text-warning me-2"></i>
+                        Recent Security Events
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    <div id="recent-alerts" class="p-4">
+                        {% if alerts %}
+                            {% for alert in alerts %}
+                            <div class="alert-item alert-medium">
+                                {{ alert }}
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="text-center py-5 text-muted">
+                                <i class="fas fa-shield-check fa-3x mb-3 opacity-50"></i>
+                                <p>No recent alerts. Network is secure!</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-lg h-100">
+                <div class="card-header bg-transparent border-0 pb-0">
+                    <h6 class="card-title mb-0">Quick Actions</h6>
+                </div>
+                <div class="card-body pt-3">
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action py-3" onclick="showSection('blocked')">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1"><i class="fas fa-ban text-danger me-2"></i>Manage Blocks</h6>
+                                <span class="badge bg-danger rounded-pill">{{ blocked_ips|length }}</span>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action py-3" onclick="showSection('arp')">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="mb-1"><i class="fas fa-network-wired text-info me-2"></i>ARP Monitor</h6>
+                                <span class="badge bg-info rounded-pill">{{ arp_table|length }}</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ARP Table -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card border-0 shadow-lg">
+                <div class="card-header bg-transparent border-0 pb-0">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-network-wired text-primary me-2"></i>
+                        Network ARP Table
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                    <th>IP Address</th>
+                                    <th>MAC Address</th>
+                                    <th>First Seen</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="arp-table-body">
+                                {% for ip, mac in arp_table.items %}
+                                <tr>
+                                    <td><code>{{ ip }}</code></td>
+                                    <td>{{ mac }}</td>
+                                    <td>{{ status.network|default:"Unknown" }}</td>
+                                    <td><span class="badge bg-success">Trusted</span></td>
+                                </tr>
+                                {% empty %}
+                                <tr><td colspan="4" class="text-center text-muted py-4">No devices detected</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Other sections would go here (alerts, blocked, etc.) -->
 {% endblock %}
-{% block content%}
-<h2>Network Security Dashboard</h2>
 
-<div class = "cards">
-
-<div class = "card">
-<h3>Alerts</h3>
-<a href = "/alerts/">View Alerts</a>
-</div>
-
-<div class = "card">
-<h3>Blocked IPs</h3>
-<a href = "/blocked/">View Blocked</a>
-</div>
-
-<div class = "card">
-<h3>Permanent Bans</h3>
-<a href = "/alerts/">View Bans</a>
-</div>
-
-
-</div>
-
-{% endblock %}
