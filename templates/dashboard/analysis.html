@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Analysis — IDPS Console{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/analysis.css' %}">{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">Attack Analysis — Last 15 Days</h1>
+</div>
+
+<!-- Summary stats -->
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-label">Total Attacks (15d)</div>
+    <div class="stat-value text-danger">{{ total_alerts }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Blocked Events</div>
+    <div class="stat-value text-warning">{{ total_blocked }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Unique Attackers</div>
+    <div class="stat-value text-info">{{ top_ips|length }}</div>
+  </div>
+</div>
+
+<!-- Attack frequency chart -->
+<section class="section">
+  <h2 class="section-title">Attack Frequency</h2>
+  <div class="chart-container">
+    <canvas id="attack-chart"></canvas>
+  </div>
+</section>
+
+<!-- Top attacking IPs -->
+<section class="section">
+  <h2 class="section-title">Top Attacking IPs</h2>
+  <div class="ip-list">
+    {% for item in top_ips %}
+    <div class="ip-row">
+      <span class="ip-rank">#{{ forloop.counter }}</span>
+      <span class="ip-addr mono">{{ item.source_ip }}</span>
+      <div class="ip-bar-wrap">
+        <div class="ip-bar" style="width: {{ item.count }}px; max-width: 300px;"></div>
+      </div>
+      <span class="ip-count text-danger">{{ item.count }} attacks</span>
+    </div>
+    {% empty %}
+    <p class="empty-state">No attacks in the last 15 days.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Blocked IPs table -->
+<section class="section">
+  <h2 class="section-title">Blocked IPs</h2>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>IP Address</th>
+          <th>Reason</th>
+          <th>Blocked At</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ip in blocked_ips %}
+        <tr>
+          <td class="mono">{{ ip.ip_address }}</td>
+          <td>{{ ip.reason }}</td>
+          <td class="mono">{{ ip.blocked_at|date:"Y-m-d H:i" }}</td>
+          <td>
+            <span class="badge {% if ip.permanent %}badge-arp_spoof{% else %}badge-icmp_flood{% endif %}">
+              {% if ip.permanent %}Permanent{% else %}Temporary{% endif %}
+            </span>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4" class="empty-state">No blocked IPs.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+const LABELS = {{ chart_labels|safe }};
+const VALUES = {{ chart_values|safe }};
+</script>
+<script src="{% static 'js/analysis.js' %}"></script>
+{% endblock %}

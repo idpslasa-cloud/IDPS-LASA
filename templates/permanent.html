@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block css %}
+<link rel = "stylesheet" href = "/static/css/permanent.css">
+{% endblock %}
+
+{% block content %}
+<h2>Permanent Banned IPs</h2>
+
+<ul>
+{% for ip in permanent_ips %}
+<li>{{ ip }}</li>
+{% empty %}
+<li>No permanently banned IPs</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

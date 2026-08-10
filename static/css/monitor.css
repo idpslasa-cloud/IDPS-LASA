@@ -1,0 +1,32 @@
+.monitor-controls { display: flex; align-items: center; gap: .75rem; }
+
+.live-badge {
+  font-size: .78rem; font-weight: 600;
+  padding: .25rem .6rem; border-radius: 20px;
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text2);
+}
+.live-badge.connected { color: var(--success); border-color: var(--success); }
+.live-badge.disconnected { color: var(--danger); }
+
+/* Counters */
+.counter-bar {
+  display: flex; gap: 2rem;
+  padding: .75rem 1rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 1rem;
+}
+.counter-label { font-size: .72rem; color: var(--text2); text-transform: uppercase; display: block; }
+.counter-value { font-size: 1.3rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.monitor-table-wrap { max-height: calc(100vh - 280px); overflow-y: auto; }
+
+/* Flagged packet row highlight */
+.packet-flagged { background: rgba(248,81,73,.07) !important; }
+.packet-flagged td:last-child { color: var(--danger); font-weight: 600; }
+
+/* Animated new row */
+@keyframes row-in { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:none; } }
+.packet-new { animation: row-in .25s ease; }

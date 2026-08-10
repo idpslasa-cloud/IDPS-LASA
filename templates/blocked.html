@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block cdd %}
+<link rel = "stylesheet" href = "/static/css/blocked.css">
+{% endblock %}
+
+{% block content %}
+
+<h2>Blocked IP Addresses</h2>
+
+<ul>
+{% for ip in blocked_ips %}
+<li>{{ ip }}</li>
+{% empty %}
+<li>No blocked IPs</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

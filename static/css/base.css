@@ -1,0 +1,176 @@
+<<<<<<< HEAD
+body{
+font-family: Arial;
+background: #111;
+color: white;
+margin: 0;
+}
+
+header{
+background: #222;
+padding:15px;
+}
+
+nav a{
+color: white;
+margin-right: 20px;
+text-decoration: none;
+}
+
+.content{
+padding: 20px;
+}
+
+footer{
+background: #111;
+padding: 10;
+}
+=======
+:root {
+  /* Backgrounds */
+  --bg: #f4f9ff;
+  --bg2: #ffffff;
+  --bg3: #eef6ff;
+
+  /* Borders */
+  --border: #c7dcf5;
+
+  /* Text */
+  --text: #17324d;
+  --text2: #5c7895;
+
+  /* Primary Theme */
+  --accent: #2196f3;
+
+  /* Status Colours */
+  --success: #2e7d32;
+  --danger: #d32f2f;
+  --warning: #f9a825;
+  --info: #0288d1;
+
+  --radius: 8px;
+
+  --font-mono: "JetBrains Mono", "Fira Mono", monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── Navigation ── */
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1.5rem;
+  height: 56px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand { display: flex; align-items: center; gap: .5rem; font-weight: 600; font-size: 1rem; }
+.nav-icon { font-size: 1.3rem; color: var(--accent); }
+.nav-title { color: var(--text); }
+
+.nav-links { display: flex; list-style: none; gap: .25rem; flex: 1; }
+.nav-link {
+  display: flex; align-items: center; gap: .4rem;
+  padding: .4rem .75rem; border-radius: var(--radius);
+  color: var(--text2); text-decoration: none; font-size: .875rem;
+  transition: background .15s, color .15s;
+}
+.nav-link:hover { background: var(--bg3); color: var(--text); }
+.nav-link.active { background: var(--bg3); color: var(--accent); }
+
+.nav-status { display: flex; align-items: center; gap: .5rem; margin-left: auto; font-size: .8rem; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text2); }
+.status-dot.on { background: var(--success); box-shadow: 0 0 6px var(--success); }
+.status-dot.off { background: var(--danger); }
+
+/* ── Main ── */
+.main-content { padding: 1.5rem 2rem; max-width: 1400px; margin: 0 auto; }
+
+/* ── Page header ── */
+.page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+.page-title { font-size: 1.4rem; font-weight: 600; }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .45rem 1rem; border-radius: var(--radius);
+  border: 1px solid var(--border); background: var(--bg3);
+  color: var(--text); cursor: pointer; font-size: .85rem;
+  transition: background .15s, border-color .15s;
+}
+.btn:hover { background: var(--border); }
+.btn-on { border-color: var(--success); color: var(--success); }
+.btn-off { border-color: var(--danger); color: var(--danger); }
+.btn-send { background: var(--accent); border-color: var(--accent); color: #0d1117; font-weight: 600; }
+.btn-send:hover { opacity: .85; }
+.btn-ghost { background: transparent; }
+.btn-sm { padding: .3rem .7rem; font-size: .8rem; }
+
+/* ── Stat cards ── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.stat-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1rem;
+}
+.stat-label { font-size: .75rem; color: var(--text2); text-transform: uppercase; letter-spacing: .05em; margin-bottom: .4rem; }
+.stat-value { font-size: 2rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* ── Section ── */
+.section { margin-bottom: 2rem; }
+.section-title { font-size: 1rem; font-weight: 600; margin-bottom: .75rem; color: var(--text); }
+.section-sub { color: var(--text2); font-size: .85rem; margin-bottom: .75rem; }
+
+/* ── Table ── */
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th {
+  background: var(--bg3); color: var(--text2);
+  font-size: .75rem; text-transform: uppercase; letter-spacing: .05em;
+  padding: .6rem 1rem; text-align: left; border-bottom: 1px solid var(--border);
+}
+.data-table td { padding: .6rem 1rem; border-bottom: 1px solid var(--border); color: var(--text); }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tbody tr:hover { background: var(--bg3); }
+
+.mono { font-family: var(--font-mono); font-size: .82rem; }
+.empty-state { color: var(--text2); text-align: center; padding: 2rem; }
+
+/* ── Badges ── */
+.badge {
+  display: inline-block; padding: .15rem .5rem;
+  border-radius: 4px; font-size: .72rem; font-weight: 600; text-transform: uppercase;
+}
+.badge-arp_spoof   { background: rgba(248, 81, 73, .15); color: var(--danger); border: 1px solid rgba(248,81,73,.3); }
+.badge-icmp_flood  { background: rgba(210,153,34, .15); color: var(--warning); border: 1px solid rgba(210,153,34,.3); }
+.badge-port_scan   { background: rgba(88,166,255,.15); color: var(--info);    border: 1px solid rgba(88,166,255,.3); }
+.badge-status-active  { background: rgba(248,81,73,.15); color: var(--danger); }
+.badge-status-blocked { background: rgba(210,153,34,.15); color: var(--warning); }
+.badge-status-resolved{ background: rgba(63,185,80,.15); color: var(--success); }
+
+/* ── Colours ── */
+.text-success { color: var(--success); }
+.text-danger  { color: var(--danger); }
+.text-warning { color: var(--warning); }
+.text-info    { color: var(--info); }
+>>>>>>> 6a33122 (Ai Network Analyser Integerated)

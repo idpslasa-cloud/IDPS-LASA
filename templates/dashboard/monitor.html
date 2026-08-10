@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Packet Monitor — IDPS Console{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/monitor.css' %}">{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">Live Packet Monitor</h1>
+  <div class="monitor-controls">
+    <span class="live-badge" id="ws-status">⬤ Connecting…</span>
+    <button id="btn-pause" class="btn btn-sm">Pause</button>
+    <button id="btn-clear" class="btn btn-sm btn-ghost">Clear</button>
+  </div>
+</div>
+
+<!-- Counter bar -->
+<div class="counter-bar">
+  <div class="counter-item">
+    <span class="counter-label">Total packets</span>
+    <span class="counter-value" id="cnt-total">0</span>
+  </div>
+  <div class="counter-item">
+    <span class="counter-label">Flagged</span>
+    <span class="counter-value text-danger" id="cnt-flagged">0</span>
+  </div>
+  <div class="counter-item">
+    <span class="counter-label">Bytes captured</span>
+    <span class="counter-value" id="cnt-bytes">0</span>
+  </div>
+</div>
+
+<!-- Live packet table -->
+<div class="table-wrap monitor-table-wrap">
+  <table class="data-table" id="packet-table">
+    <thead>
+      <tr>
+        <th>Timestamp</th>
+        <th>Sender (src)</th>
+        <th>Receiver (dst)</th>
+        <th>Protocol</th>
+        <th>Size (bytes)</th>
+        <th>Flag</th>
+      </tr>
+    </thead>
+    <tbody id="packet-body">
+      <tr><td colspan="6" class="empty-state">Waiting for packets…</td></tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const WS_URL = "ws://{{ request.get_host|default:'127.0.0.1:8001' }}".replace(/^http/, 'ws')
+                  .replace(':8000', ':8001') + '/ws/packets';
+</script>
+<script src="{% static 'js/monitor.js' %}"></script>
+{% endblock %}

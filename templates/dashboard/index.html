@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard — IDPS Console{% endblock %}
+{% block extra_css %}<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1 class="page-title">Network Security Dashboard</h1>
+  <button id="btn-toggle-ids" class="btn btn-toggle {% if idps_on %}btn-on{% else %}btn-off{% endif %}"
+          data-url="{% url 'toggle_ids' %}">
+    <span class="toggle-indicator"></span>
+    IDS <span id="toggle-label">{% if idps_on %}ON{% else %}OFF{% endif %}</span>
+  </button>
+</div>
+
+<!-- Stat cards -->
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-label">IDS Status</div>
+    <div class="stat-value {% if idps_on %}text-success{% else %}text-danger{% endif %}">
+      {% if idps_on %}Active{% else %}Inactive{% endif %}
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Total Alerts</div>
+    <div class="stat-value text-warning">{{ alert_count }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Active Threats</div>
+    <div class="stat-value text-danger">{{ active_threats }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Blocked IPs</div>
+    <div class="stat-value text-info">{{ blocked_count }}</div>
+  </div>
+</div>
+
+<!-- Recent alerts table -->
+<section class="section">
+  <h2 class="section-title">Recent Alerts</h2>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Type</th>
+          <th>Source IP</th>
+          <th>Destination</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for alert in recent_alerts %}
+        <tr class="alert-row alert-{{ alert.attack_type|lower }}">
+          <td class="mono">{{ alert.timestamp|date:"H:i:s" }}</td>
+          <td><span class="badge badge-{{ alert.attack_type|lower }}">{{ alert.get_attack_type_display }}</span></td>
+          <td class="mono">{{ alert.source_ip }}</td>
+          <td class="mono">{{ alert.destination_ip|default:"—" }}</td>
+          <td><span class="badge badge-status-{{ alert.status|lower }}">{{ alert.status }}</span></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="5" class="empty-state">No alerts yet. Network is clean.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- AI Chatbot -->
+<section class="section chatbot-section">
+  <h2 class="section-title">AI Network Analyser</h2>
+  <p class="section-sub">Ask anything about your network in plain English.</p>
+  <div class="chat-window" id="chat-window">
+    <div class="chat-msg bot">
+      <div class="chat-bubble">Hello! I'm your AI network assistant. Ask me about ports, services, connected devices, or any anomalies.</div>
+    </div>
+  </div>
+  <div class="chat-input-row">
+    <input type="text" id="chat-input" class="chat-input" placeholder="e.g. scan network devices, check port 443, detect anomalies…" autocomplete="off" />
+    <button id="chat-send" class="btn btn-send" data-url="{% url 'chatbot' %}">Send</button>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}<script src="{% static 'js/dashboard.js' %}"></script>{% endblock %}

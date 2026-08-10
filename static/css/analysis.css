@@ -1,0 +1,23 @@
+.chart-container {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  height: 320px;
+  position: relative;
+}
+
+/* IP list */
+.ip-list { display: flex; flex-direction: column; gap: .5rem; }
+.ip-row {
+  display: flex; align-items: center; gap: 1rem;
+  padding: .6rem 1rem;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.ip-rank { color: var(--text2); font-size: .8rem; min-width: 2rem; }
+.ip-addr { flex: 0 0 160px; }
+.ip-bar-wrap { flex: 1; background: var(--bg3); height: 6px; border-radius: 3px; overflow: hidden; }
+.ip-bar { height: 6px; background: var(--danger); border-radius: 3px; transition: width .5s ease; min-width: 4px; }
+.ip-count { min-width: 90px; text-align: right; font-size: .82rem; }

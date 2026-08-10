@@ -1,0 +1,22 @@
+{% load static %}
+<nav class="nav">
+  <div class="nav-brand">
+    <span class="nav-icon">⬡</span>
+    <span class="nav-title">IDPS Console</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="{% url 'dashboard' %}" class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+      <span class="nav-link-icon">◈</span> Dashboard
+    </a></li>
+    <li><a href="{% url 'monitor' %}" class="nav-link {% if request.resolver_match.url_name == 'monitor' %}active{% endif %}">
+      <span class="nav-link-icon">◉</span> Packet Monitor
+    </a></li>
+    <li><a href="{% url 'analysis' %}" class="nav-link {% if request.resolver_match.url_name == 'analysis' %}active{% endif %}">
+      <span class="nav-link-icon">◎</span> Analysis
+    </a></li>
+  </ul>
+  <div class="nav-status">
+    <span id="ids-status-dot" class="status-dot {% if idps_on %}on{% else %}off{% endif %}"></span>
+    <span id="ids-status-text">IDS {% if idps_on %}ON{% else %}OFF{% endif %}</span>
+  </div>
+</nav>
